@@ -1,0 +1,19 @@
+[package]
+name = "clucolor"
+version = "0.1.0"
+authors = ["Денис Котляров <denis2005991@gmail.com>"]
+repository = "https://github.com/clucompany/cluColor.git"
+license = "Apache-2.0"
+readme = "README.md"
+
+description = "Methods for formatted recording of color output."
+keywords = ["color_out", "clucolor", "color", "clucompany"]
+categories = ["development-tools"]
+
+
+[lib]
+name = "clucolor"
+path = "src/lib.rs"
+crate-type = ["dylib", "rlib"]
+
+[dependencies]
