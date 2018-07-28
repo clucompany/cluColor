@@ -283,6 +283,7 @@ use std::fmt::Debug;
 use std::io;
 
 ///Common features implemented by the generalized type.
+#[allow(non_camel_case_types)]
 pub trait cluColor: Clone + Debug + Display + Eq + Hash + Ord + PartialEq + PartialOrd {
 	///Color str type
 	#[inline(always)]

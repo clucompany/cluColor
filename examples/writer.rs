@@ -13,11 +13,9 @@ fn main() {
 		let stdout = ::std::io::stdout();
 		let mut lock_stdio = stdout.lock();
 	
-		writer.writen(&mut lock_stdio, b"TestWriten");
+		writer.writen(&mut lock_stdio, b"TestWriten").unwrap();
 	}
-	{
-		let writer = Blue::writer();
-	
+	{	
 		let stdout = ::std::io::stdout();
 		let mut lock_stdio = stdout.lock();
 	

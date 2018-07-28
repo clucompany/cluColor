@@ -8,17 +8,14 @@ use std::io;
 use cluColor;
 
 ///Lightweight wrap for generalized color type.
+#[allow(non_camel_case_types)]
 #[derive(Debug, Clone, Eq, Hash, Ord, PartialEq, PartialOrd)]
-pub struct cluColorWriter<C: cluColor> {
-	_phantom: PhantomData<C>,
-}
+pub struct cluColorWriter<C: cluColor>(PhantomData<C>);
 
 impl<C: cluColor> cluColorWriter<C> {
 	#[inline]
-	pub fn new() -> cluColorWriter<C> {
-		cluColorWriter {
-			_phantom: PhantomData,
-		}
+	pub fn new() -> Self {
+		cluColorWriter(PhantomData)
 	}
 	
 	#[inline(always)]
