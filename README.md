@@ -1,9 +1,9 @@
 # cluColor
 
-[![Build Status](https://travis-ci.org/clucompany/cluUname.svg?branch=master)](https://travis-ci.org/clucompany/cluColor)
+[![Build Status](https://travis-ci.org/clucompany/cluColor.svg?branch=master)](https://travis-ci.org/clucompany/cluColor)
 [![Apache licensed](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
-[![crates.io](http://meritbadge.herokuapp.com/cluuname)](https://crates.io/crates/clucolor)
-[![Documentation](https://docs.rs/cluuname/badge.svg)](https://docs.rs/clucolor)
+[![crates.io](http://meritbadge.herokuapp.com/cluColor)](https://crates.io/crates/cluColor)
+[![Documentation](https://docs.rs/cluColor/badge.svg)](https://docs.rs/cluColor)
 
 
 Methods for formatted recording of color output.
