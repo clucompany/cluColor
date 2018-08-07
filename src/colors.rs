@@ -1,6 +1,5 @@
 
 use std::fmt;
-use std::fmt::Debug;
 use std::fmt::Display;
 use std::io::Write;
 use std::fmt::Arguments;
@@ -19,13 +18,12 @@ macro_rules! build_type_colored {
 	
 	( $(  $color:tt | $color_byte:tt | $name:ident, $doc_name:expr )+ ) => {
 		$(
-			#[derive(Clone, Eq, Hash, Ord, PartialEq, PartialOrd)]
+			#[derive(Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 			
 			#[doc = "Color Type `"]
 			#[doc = $doc_name]
 			#[doc = "`."]
 			pub enum $name {}
-			
 			
 			impl cluColor for $name {
 				
@@ -53,10 +51,9 @@ macro_rules! build_type_colored {
 					$doc_name
 				}
 				
-				#[inline]
 				fn write<'a>(w: &mut Write, array: &'a [u8]) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}",
-						
+	
 							raw_color!(start),
 							Self::raw_color(),
 							raw_color!(end_color),
@@ -65,7 +62,6 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				#[inline]
 				fn write_str<'a>(w: &mut Write, str: &'a str) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}",
 						
@@ -77,7 +73,6 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				#[inline]
 				fn write_fmt<'a>(w: &mut Write, fmt: Arguments<'a>) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}",
 							raw_color!(start),
@@ -90,7 +85,6 @@ macro_rules! build_type_colored {
 				
 				// add n
 				
-				#[inline]
 				fn writen<'a>(w: &mut Write, array: &'a [u8]) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}\n",
 						
@@ -102,7 +96,6 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				#[inline]
 				fn writen_str<'a>(w: &mut Write, str: &'a str) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}\n",
 						
@@ -114,7 +107,6 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				#[inline]
 				fn writen_fmt<'a>(w: &mut Write, fmt: Arguments<'a>) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}\n",
 							raw_color!(start),
@@ -126,7 +118,6 @@ macro_rules! build_type_colored {
 				}
 				
 				
-				#[inline]
 				fn string_fmt<'a>(fmt: Arguments<'a>) -> String {
 					format!("{}{}{}{}{}",
 							raw_color!(start),
@@ -137,7 +128,6 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				#[inline]
 				fn string<'a>(str: &'a str) -> String {
 					format!("{}{}{}{}{}",
 							raw_color!(start),
@@ -148,7 +138,6 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				#[inline]
 				fn stringn_fmt<'a>(fmt: Arguments<'a>) -> String {
 					format!("{}{}{}{}{}\n",
 							raw_color!(start),
@@ -159,7 +148,6 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				#[inline]
 				fn stringn<'a>(str: &'a str) -> String {
 					format!("{}{}{}{}{}\n",
 							raw_color!(start),
@@ -169,7 +157,43 @@ macro_rules! build_type_colored {
 						raw_color!(end)
 					)
 				}
-				
+
+				fn with_color_fmt<'a, F: Fn(&Arguments) -> T, T: 'a>(args: Arguments<'a>, function: F) -> T {
+					function(
+						&format_args!("{}{}{}{}{}",
+						
+							raw_color!(start),
+							Self::raw_color(),
+							raw_color!(end_color),
+							args, 
+							raw_color!(end)
+						)
+					)
+				}
+				fn once_with_color_fmt<'a, F: FnOnce(&Arguments) -> T, T: 'a>(args: Arguments<'a>, function: F) -> T {
+					function(
+						&format_args!("{}{}{}{}{}",
+						
+							raw_color!(start),
+							Self::raw_color(),
+							raw_color!(end_color),
+							args, 
+							raw_color!(end)
+						)
+					)
+				}
+				fn mut_with_color_fmt<'a, F: FnMut(&Arguments) -> T, T: 'a>(args: Arguments<'a>, mut function: F) -> T {
+					function(
+						&format_args!("{}{}{}{}{}",
+						
+							raw_color!(start),
+							Self::raw_color(),
+							raw_color!(end_color),
+							args, 
+							raw_color!(end)
+						)
+					)
+				}
 			}
 			
 			impl Display for $name {
@@ -178,11 +202,11 @@ macro_rules! build_type_colored {
 				}
 			}
 			
-			impl Debug for $name {
+			/*impl Debug for $name {
 				fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 					f.debug_struct(Self::name()).finish()
 				}
-			}
+			}*/
 			
 		)+
 
