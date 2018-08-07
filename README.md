@@ -67,7 +67,53 @@ Methods for formatted recording of color output.
 
 	let _e = BrightRed::writen(&mut vec, b"end value.." );
 
-All other functions are implemented in color mod with the help of cluColor!
+# Use move color arguments
+
+	#[macro_use]
+	extern crate clucolor;
+
+	use clucolor::colors::BrightBlue;
+
+	#[derive(Debug, Default)]
+	pub struct Items(usize, usize);
+
+	impl Items {
+	     #[inline]
+	     pub fn count(&self) -> usize {
+		  self.0 + self.1
+	     }
+	}
+
+	let mut item = Items::default();
+
+	for a in 0..15 {
+	     BrightGreen::with_color_fmt(format_args!("NUM #{}", a), |fmt_num| {
+		  BrightBlue::with_color_fmt(format_args!("ITEM #{:?}", item), |fmt_item| {
+		       BrightRed::with_color_fmt(format_args!("ALL_COUNT {}", item.count()), |fmt_count| {
+			    println!("{}, {}; {};", fmt_num, fmt_item, fmt_count);
+		       });
+		  });
+	     });
+
+	     item.0 += 1;
+	     item.1 += 2;
+	}
+
+# Use ColorWriter
+
+	#[macro_use]
+	extern crate clucolor;
+
+	use clucolor::colors::Blue;
+
+	let writer = Blue::writer();
+
+	let stdout = ::std::io::stdout();
+	let mut lock_stdio = stdout.lock();
+
+	writer.writen(&mut lock_stdio, b"TestWriten").unwrap();
+
+	All other functions are implemented in color mod with the help of cluColor!
 
 
 # License
