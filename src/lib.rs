@@ -368,22 +368,22 @@ pub trait cluColor: Debug + Display + Eq + Hash + Ord + PartialEq + PartialOrd {
 	
 	
 	#[inline]
-	fn write_as<'a, A: AsRef<[u8]>>(w: &mut Write, asref: A) -> io::Result<()> {
+	fn write_as<'a, W: Write, A: AsRef<[u8]>>(w: W, asref: A) -> io::Result<()> {
 		Self::write(w, asref.as_ref())
 	}
 	#[inline]
-	fn writen_as<'a, A: AsRef<[u8]>>(w: &mut Write, asref: A) -> io::Result<()> {
+	fn writen_as<'a, W: Write, A: AsRef<[u8]>>(w: W, asref: A) -> io::Result<()> {
 		Self::writen(w, asref.as_ref())
 	}
 	
 
-	fn write<'a>(w: &mut Write, buf: &'a [u8]) -> io::Result<()>;
-	fn write_str<'a>(w: &mut Write, str: &'a str) -> io::Result<()>;
-	fn write_fmt<'a>(w: &mut Write, fmt: Arguments<'a>) -> io::Result<()>;
+	fn write<'a, W: Write>(w: W, buf: &'a [u8]) -> io::Result<()>;
+	fn write_str<'a, W: Write>(w: W, str: &'a str) -> io::Result<()>;
+	fn write_fmt<'a, W: Write>(w: W, fmt: Arguments<'a>) -> io::Result<()>;
 	
-	fn writen<'a>(w: &mut Write, buf: &'a [u8]) -> io::Result<()>;
-	fn writen_str<'a>(w: &mut Write, str: &'a str) -> io::Result<()>;
-	fn writen_fmt<'a>(w: &mut Write, fmt: Arguments<'a>) -> io::Result<()>;
+	fn writen<'a, W: Write>(w: W, buf: &'a [u8]) -> io::Result<()>;
+	fn writen_str<'a, W: Write>(w: W, str: &'a str) -> io::Result<()>;
+	fn writen_fmt<'a, W: Write>(w: W, fmt: Arguments<'a>) -> io::Result<()>;
 
 	fn with_color_fmt<'a, F: Fn(&Arguments) -> T, T: 'a>(args: Arguments<'a>, function: F) -> T;
 	fn once_with_color_fmt<'a, F: FnOnce(&Arguments) -> T, T: 'a>(args: Arguments<'a>, function: F) -> T;

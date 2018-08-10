@@ -51,7 +51,7 @@ macro_rules! build_type_colored {
 					$doc_name
 				}
 				
-				fn write<'a>(w: &mut Write, array: &'a [u8]) -> io::Result<()> {
+				fn write<'a, W: Write>(mut w: W, array: &'a [u8]) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}",
 	
 							raw_color!(start),
@@ -62,7 +62,7 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				fn write_str<'a>(w: &mut Write, str: &'a str) -> io::Result<()> {
+				fn write_str<'a, W: Write>(mut w: W, str: &'a str) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}",
 						
 							raw_color!(start),
@@ -73,7 +73,7 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				fn write_fmt<'a>(w: &mut Write, fmt: Arguments<'a>) -> io::Result<()> {
+				fn write_fmt<'a, W: Write>(mut w: W, fmt: Arguments<'a>) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}",
 							raw_color!(start),
 							Self::raw_color(),
@@ -85,7 +85,7 @@ macro_rules! build_type_colored {
 				
 				// add n
 				
-				fn writen<'a>(w: &mut Write, array: &'a [u8]) -> io::Result<()> {
+				fn writen<'a, W: Write>(mut w: W, array: &'a [u8]) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}\n",
 						
 							raw_color!(start),
@@ -96,7 +96,7 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				fn writen_str<'a>(w: &mut Write, str: &'a str) -> io::Result<()> {
+				fn writen_str<'a, W: Write>(mut w: W, str: &'a str) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}\n",
 						
 							raw_color!(start),
@@ -107,7 +107,7 @@ macro_rules! build_type_colored {
 					)
 				}
 				
-				fn writen_fmt<'a>(w: &mut Write, fmt: Arguments<'a>) -> io::Result<()> {
+				fn writen_fmt<'a, W: Write>(mut w: W, fmt: Arguments<'a>) -> io::Result<()> {
 					write!(w, "{}{}{}{}{}\n",
 							raw_color!(start),
 							Self::raw_color(),
