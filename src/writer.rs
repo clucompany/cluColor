@@ -34,34 +34,34 @@ impl<C: cluColor> cluColorWriter<C> {
 	}
 	
 	#[inline(always)]
-	pub fn write<'a>(&self, w: &mut Write, buf: &'a [u8]) -> io::Result<()> {
+	pub fn write<'a, W: Write>(&self, w: W, buf: &'a [u8]) -> io::Result<()> {
 		C::write(w, buf)
 	}
 	
 	#[inline(always)]
-	pub fn write_str<'a>(&self, w: &mut Write, str: &'a str) -> io::Result<()> {
+	pub fn write_str<'a, W: Write>(&self, w: W, str: &'a str) -> io::Result<()> {
 		C::write_str(w, str)
 	}
 	
 	#[inline(always)]
-	pub fn write_fmt<'a>(&self, w: &mut Write, fmt: Arguments<'a>) -> io::Result<()> {
+	pub fn write_fmt<'a, W: Write>(&self, w: W, fmt: Arguments<'a>) -> io::Result<()> {
 		C::write_fmt(w, fmt)
 	}
 	
 	// add /n
 	
 	#[inline(always)]
-	pub fn writen<'a>(&self, w: &mut Write, buf: &'a [u8]) -> io::Result<()> {
+	pub fn writen<'a, W: Write>(&self, w: W, buf: &'a [u8]) -> io::Result<()> {
 		C::writen(w, buf)
 	}
 	
 	#[inline(always)]
-	pub fn writen_str<'a>(&self, w: &mut Write, str: &'a str) -> io::Result<()> {
+	pub fn writen_str<'a, W: Write>(&self, w: W, str: &'a str) -> io::Result<()> {
 		C::writen_str(w, str)
 	}
 	
 	#[inline(always)]
-	pub fn writen_fmt<'a>(&self, w: &mut Write, fmt: Arguments<'a>) -> io::Result<()> {
+	pub fn writen_fmt<'a, W: Write>(&self, w: W, fmt: Arguments<'a>) -> io::Result<()> {
 		C::writen_fmt(w, fmt)
 	}
 	

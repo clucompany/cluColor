@@ -361,10 +361,43 @@ pub trait cluColor: Debug + Display + Eq + Hash + Ord + PartialEq + PartialOrd {
 	}
 	
 	
-	fn string<'a>(str: &'a str) -> String;
-	fn string_fmt<'a>(fmt: Arguments<'a>) -> String;
-	fn stringn<'a>(str: &'a str) -> String;
-	fn stringn_fmt<'a>(fmt: Arguments<'a>) -> String;
+	fn string_fmt<'a>(fmt: Arguments<'a>) -> String {
+		format!("{}{}{}{}{}",
+			raw_color!(start),
+				Self::raw_color(),
+			raw_color!(end_color),
+			fmt, 
+			raw_color!(end)
+		)
+	}
+	fn string<'a>(str: &'a str) -> String {
+		format!("{}{}{}{}{}",
+			raw_color!(start),
+				Self::raw_color(),
+			raw_color!(end_color),
+			str, 
+			raw_color!(end)
+		)
+	}
+
+	fn stringn<'a>(str: &'a str) -> String {
+		format!("{}{}{}{}{}\n",
+				raw_color!(start),
+					Self::raw_color(),
+				raw_color!(end_color),
+			str, 
+			raw_color!(end)
+		)
+	}
+	fn stringn_fmt<'a>(fmt: Arguments<'a>) -> String {
+		format!("{}{}{}{}{}\n",
+			raw_color!(start),
+				Self::raw_color(),
+			raw_color!(end_color),
+			fmt, 
+			raw_color!(end)
+		)
+	}
 	
 	
 	#[inline]
@@ -377,17 +410,105 @@ pub trait cluColor: Debug + Display + Eq + Hash + Ord + PartialEq + PartialOrd {
 	}
 	
 
-	fn write<'a, W: Write>(w: W, buf: &'a [u8]) -> io::Result<()>;
-	fn write_str<'a, W: Write>(w: W, str: &'a str) -> io::Result<()>;
-	fn write_fmt<'a, W: Write>(w: W, fmt: Arguments<'a>) -> io::Result<()>;
-	
-	fn writen<'a, W: Write>(w: W, buf: &'a [u8]) -> io::Result<()>;
-	fn writen_str<'a, W: Write>(w: W, str: &'a str) -> io::Result<()>;
-	fn writen_fmt<'a, W: Write>(w: W, fmt: Arguments<'a>) -> io::Result<()>;
+	fn write<'a, W: Write>(mut w: W, array: &'a [u8]) -> io::Result<()> {
+		write!(w, "{}{}{}{}{}",
+			raw_color!(start),
+				Self::raw_color(),
+			raw_color!(end_color),
+			unsafe { ::std::str::from_utf8_unchecked(array) }, 
+			raw_color!(end)
+		)
+	}
 
-	fn with_color_fmt<'a, F: Fn(&Arguments) -> T, T: 'a>(args: Arguments<'a>, function: F) -> T;
-	fn once_with_color_fmt<'a, F: FnOnce(&Arguments) -> T, T: 'a>(args: Arguments<'a>, function: F) -> T;
-	fn mut_with_color_fmt<'a, F: FnMut(&Arguments) -> T, T: 'a>(args: Arguments<'a>, function: F) -> T;
+	fn write_str<'a, W: Write>(mut w: W, str: &'a str) -> io::Result<()> {
+		write!(w, "{}{}{}{}{}",
+						
+			raw_color!(start),
+				Self::raw_color(),
+			raw_color!(end_color),
+			str, 
+			raw_color!(end)
+		)
+	}
+	fn write_fmt<'a, W: Write>(mut w: W, fmt: Arguments<'a>) -> io::Result<()> {
+		write!(w, "{}{}{}{}{}",
+			raw_color!(start),
+				Self::raw_color(),
+			raw_color!(end_color),
+			fmt, 
+			raw_color!(end)
+		)
+	}
+	
+	fn writen<'a, W: Write>(mut w: W, array: &'a [u8]) -> io::Result<()> {
+		write!(w, "{}{}{}{}{}\n",
+						
+			raw_color!(start),
+				Self::raw_color(),
+			raw_color!(end_color),
+			unsafe { ::std::str::from_utf8_unchecked(array) }, 
+			raw_color!(end)
+		)
+	}
+	
+	fn writen_str<'a, W: Write>(mut w: W, str: &'a str) -> io::Result<()> {
+		write!(w, "{}{}{}{}{}\n",
+						
+			raw_color!(start),
+				Self::raw_color(),
+			raw_color!(end_color),
+			str, 
+			raw_color!(end)
+		)
+	}
+
+	fn writen_fmt<'a, W: Write>(mut w: W, fmt: Arguments<'a>) -> io::Result<()> {
+		write!(w, "{}{}{}{}{}\n",
+			raw_color!(start),
+				Self::raw_color(),
+			raw_color!(end_color),
+			fmt, 
+			raw_color!(end)
+		)
+	}
+
+	fn with_color_fmt<'a, F: Fn(&Arguments) -> T, T: 'a>(args: Arguments<'a>, function: F) -> T {
+		function(
+			&format_args!("{}{}{}{}{}",
+						
+				raw_color!(start),
+					Self::raw_color(),
+				raw_color!(end_color),
+				args, 
+				raw_color!(end)
+			)
+		)
+	}
+	fn once_with_color_fmt<'a, F: FnOnce(&Arguments) -> T, T: 'a>(args: Arguments<'a>, function: F) -> T {
+		function(
+			&format_args!("{}{}{}{}{}",
+						
+				raw_color!(start),
+					Self::raw_color(),
+				raw_color!(end_color),
+				args, 
+				raw_color!(end)
+			)
+		)
+	}
+	
+	fn mut_with_color_fmt<'a, F: FnMut(&Arguments) -> T, T: 'a>(args: Arguments<'a>, mut function: F) -> T {
+		function(
+			&format_args!("{}{}{}{}{}",
+						
+				raw_color!(start),
+					Self::raw_color(),
+				raw_color!(end_color),
+				args, 
+				raw_color!(end)
+			)
+		)
+	}
 }
 
 
