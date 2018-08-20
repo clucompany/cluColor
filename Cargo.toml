@@ -12,8 +12,7 @@ categories = ["development-tools"]
 
 
 [lib]
-name = "clucolor"
+name = "cluColor"
 path = "src/lib.rs"
-crate-type = ["dylib", "rlib"]
 
 [dependencies]
