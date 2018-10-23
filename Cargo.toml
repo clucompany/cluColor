@@ -11,7 +11,7 @@ keywords = ["color_out", "clucolor", "color", "clucompany"]
 categories = ["development-tools"]
 
 [lib]
-name = "cluColor"
+name = "clucolor"
 path = "src/lib.rs"
 
 [dependencies]
