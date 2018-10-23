@@ -109,5 +109,69 @@ impl<C: cluColor> Display for cluColorWriter<C> {
 
 
 
+impl<'l, T: cluColor> cluColor for cluColorWriter<T> {
+	#[inline(always)]
+	fn raw_color<'a>() -> &'a str { T::raw_color() }
+	
+	#[inline(always)]
+	fn raw_color_b<'a>() -> &'a [u8] { T::raw_color_b() }
+	
+	#[inline(always)]
+	fn name<'a>() -> &'a str { T::name() }
+	
 
+	#[inline(always)]
+	fn writer() -> cluColorWriter<Self> where Self: Sized { cluColorWriter::<Self>::new() }
+	
+	
+	#[inline(always)]
+	fn string_as<'a, A: AsRef<str>>(asref: A) -> String { T::string_as(asref) }
 
+	#[inline(always)]
+	fn stringn_as<'a, A: AsRef<str>>(asref: A) -> String { T::stringn_as(asref) }
+	
+	#[inline(always)]
+	fn string_fmt<'a>(fmt: Arguments<'a>) -> String { T::string_fmt(fmt) }
+
+	#[inline(always)]
+	fn string<'a>(str: &'a str) -> String { T::string(str) }
+
+	#[inline(always)]
+	fn stringn<'a>(str: &'a str) -> String { T::stringn(str) }
+
+	#[inline(always)]
+	fn stringn_fmt<'a>(fmt: Arguments<'a>) -> String { T::stringn_fmt(fmt) }
+	
+	#[inline(always)]
+	fn write_as<'a, W: Write, A: AsRef<[u8]>>(w: W, asref: A) -> io::Result<()> { T::write_as(w, asref) }
+
+	#[inline(always)]
+	fn writen_as<'a, W: Write, A: AsRef<[u8]>>(w: W, asref: A) -> io::Result<()> { T::writen_as(w, asref) }
+
+	#[inline(always)]
+	fn write<'a, W: Write>(w: W, array: &'a [u8]) -> io::Result<()> { T::write(w, array) }
+
+	#[inline(always)]
+	fn write_str<'a, W: Write>(w: W, str: &'a str) -> io::Result<()> { T::write_str(w, str) }
+
+	#[inline(always)]
+	fn write_fmt<'a, W: Write>(w: W, fmt: Arguments<'a>) -> io::Result<()> { T::write_fmt(w, fmt) }
+
+	#[inline(always)]
+	fn writen<'a, W: Write>(w: W, array: &'a [u8]) -> io::Result<()> { T::writen(w, array) }
+	
+	#[inline(always)]
+	fn writen_str<'a, W: Write>(w: W, str: &'a str) -> io::Result<()> { T::writen_str(w, str) }
+
+	#[inline(always)]
+	fn writen_fmt<'a, W: Write>(w: W, fmt: Arguments<'a>) -> io::Result<()> { T::writen_fmt(w, fmt) }
+
+	#[inline(always)]
+	fn with_color_fmt<'a, F: Fn(&Arguments) -> C, C: 'a>(args: Arguments<'a>, function: F) -> C { T::with_color_fmt(args, function) }
+
+	#[inline(always)]
+	fn once_with_color_fmt<'a, F: FnOnce(&Arguments) -> C, C: 'a>(args: Arguments<'a>, function: F) -> C { T::once_with_color_fmt(args, function) }
+	
+	#[inline(always)]
+	fn mut_with_color_fmt<'a, F: FnMut(&Arguments) -> C, C: 'a>(args: Arguments<'a>, function: F) -> C { T::mut_with_color_fmt(args, function) }
+}
