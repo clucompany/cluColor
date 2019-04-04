@@ -1,4 +1,4 @@
-# cluColor
+# cluColor [DEPRECATED, please use https://github.com/clucompany/cluEscSequency]
 
 [![Build Status](https://travis-ci.org/clucompany/cluColor.svg?branch=master)](https://travis-ci.org/clucompany/cluColor)
 [![Apache licensed](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
