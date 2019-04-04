@@ -1,5 +1,4 @@
-# cluColor [DEPRECATED, please use https://github.com/clucompany/cluEscSequency]
-
+# cluColor 
 [![Build Status](https://travis-ci.org/clucompany/cluColor.svg?branch=master)](https://travis-ci.org/clucompany/cluColor)
 [![Apache licensed](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](./LICENSE)
 [![crates.io](http://meritbadge.herokuapp.com/cluColor)](https://crates.io/crates/cluColor)
@@ -7,6 +6,10 @@
 
 
 Methods for formatted recording of color output.
+
+[DEPRECATED, please use https://github.com/clucompany/cluEscSequency]
+
+
 # Easy methods of formatted recording
 
 	#[macro_use]
